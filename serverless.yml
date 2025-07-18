@@ -14,11 +14,11 @@ provider:
     MAIL_PASSWORD: ${env:MAIL_PASSWORD, ''}
     MAIL_ENCRYPTION: ${env:MAIL_ENCRYPTION, ''}
     MAIL_FROM_ADDRESS: ${env:MAIL_FROM_ADDRESS, ''}
-    IP_WHITELIST: ${env:IP_WHITELIST, ''}
     CORS_ALLOW_ORIGIN: ${env:CORS_ALLOW_ORIGIN, '*'}
     CORS_ALLOW_HEADERS: ${env:CORS_ALLOW_HEADERS, '*'}
     CORS_ALLOW_METHODS: ${env:CORS_ALLOW_METHODS, '*'}
     CORS_ALLOW_CREDENTIALS: ${env:CORS_ALLOW_CREDENTIALS, 'true'}
+    API_SECRET: ${env:API_SECRET, ''}
   deploymentBucket:
     name: serverless-framework-deployments-eu-west-1-41d5edce-535f
 plugins:

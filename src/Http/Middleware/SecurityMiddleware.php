@@ -9,25 +9,23 @@ use Slim\Psr7\Response;
 
 class SecurityMiddleware implements MiddlewareInterface
 {
-    private array $whitelist;
+    private string $apiSecret;
 
     public function __construct()
     {
-        // Load whitelist from env, comma separated
-        $whitelist = env('IP_WHITELIST') ?: '';
-        $this->whitelist = array_map('trim', explode(',', $whitelist));
+        // Carica il segreto dall'env
+        $this->apiSecret = env('API_SECRET') ?: '';
     }
 
     public function process(Request $request, Handler $handler): ResponseInterface
     {
-        $ip = $request->getServerParams()['REMOTE_ADDR'] ?? '';
-
-        if (!in_array($ip, $this->whitelist, true)) {
+        $headerSecret = $request->getHeaderLine('x-api-secret');
+        die;
+        if ($headerSecret !== $this->apiSecret || empty($this->apiSecret)) {
             $response = new Response();
-            $response->getBody()->write('Forbidden: IP not allowed.');
+            $response->getBody()->write('Forbidden: Invalid API secret.');
             return $response->withStatus(403);
         }
-
         return $handler->handle($request);
     }
 }

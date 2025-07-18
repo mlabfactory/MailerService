@@ -21,7 +21,7 @@ $app->get('/', function ($request, $response) {
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->group('/email', function ($group) {
+$app->group('/api/email', function ($group) {
     $group->post('/notify/contact', ['\Mlab\Mailer\Http\Controller\SendMailController', 'sendEmail']);
 })->add(new \Mlab\Mailer\Http\Middleware\SecurityMiddleware())
     ->add(new \Mlab\Mailer\Http\Middleware\RateLimitMiddleware());
