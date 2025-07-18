@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Email</title>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; }
+        .container { max-width: 600px; margin: auto; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        .header { font-size: 24px; margin-bottom: 20px; }
+        .content { font-size: 16px; }
+        .footer { margin-top: 30px; font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Contact Request</div>
+        <div class="content">
+            <p>Hello,</p>
+            <p>You have received a new contact request:</p>
+            <ul>
+                <li><strong>Name:</strong> {{ name }}</li>
+                <li><strong>Email:</strong> {{ email }}</li>
+                <li><strong>Message:</strong><br>{{ message|raw }}</li>
+            </ul>
+        </div>
+        <div class="footer">
+            &copy; {{ "now"|date("Y") }} Your Company. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

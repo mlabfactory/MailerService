@@ -1,0 +1,45 @@
+service: mlabfactory-mailer-service
+provider:
+  name: aws
+  region: eu-west-1
+  runtime: provided.al2
+  environment:
+    APP_NAME: ${env:APP_NAME}
+    APP_ENV: ${env:APP_ENV}
+    LOG_CHANNEL: ${env:LOG_CHANNEL}
+    MAIL_DRIVER: ${env:MAIL_DRIVER}
+    MAIL_HOST: ${env:MAIL_HOST, ''}
+    MAIL_PORT: ${env:MAIL_PORT, ''}
+    MAIL_USERNAME: ${env:MAIL_USERNAME, ''}
+    MAIL_PASSWORD: ${env:MAIL_PASSWORD, ''}
+    MAIL_ENCRYPTION: ${env:MAIL_ENCRYPTION, ''}
+    MAIL_FROM_ADDRESS: ${env:MAIL_FROM_ADDRESS, ''}
+    IP_WHITELIST: ${env:IP_WHITELIST, ''}
+    CORS_ALLOW_ORIGIN: ${env:CORS_ALLOW_ORIGIN, '*'}
+    CORS_ALLOW_HEADERS: ${env:CORS_ALLOW_HEADERS, '*'}
+    CORS_ALLOW_METHODS: ${env:CORS_ALLOW_METHODS, '*'}
+    CORS_ALLOW_CREDENTIALS: ${env:CORS_ALLOW_CREDENTIALS, 'true'}
+  deploymentBucket:
+    name: serverless-framework-deployments-eu-west-1-41d5edce-535f
+plugins:
+  - ./vendor/bref/bref
+functions:
+  web:
+    handler: public/index.php
+    layers:
+      - arn:aws:lambda:eu-west-1:534081306603:layer:php-82-fpm:99
+    events:
+      - httpApi: '*'
+package:
+  exclude:
+    - '.git/**'
+    - '.idea/**'
+    - 'node_modules/**'
+    - 'tests/**'
+    - 'storage/logs/**'
+    - '.env.*'
+  include:
+    - 'public/**'
+    - 'vendor/**'
+    - 'bootstrap/**'
+    - 'storage/**'
